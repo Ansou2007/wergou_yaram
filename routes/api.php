@@ -1,0 +1,19 @@
+<?php
+
+use App\Http\Controllers\Api\GardeController;
+use App\Http\Controllers\Api\pharmacieController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+
+//--------------PHARMACIE------------//
+Route::controller(PharmacieController::class)->group(function () {
+    Route::get('/pharmacies', 'liste_pharmacie');
+});
+//--------------PHARMACIE GARDE------------//
+Route::controller(GardeController::class)->group(function () {
+    Route::get('gardes', 'liste_garde');
+});
