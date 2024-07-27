@@ -11,9 +11,9 @@ Route::get('/user', function (Request $request) {
 
 //--------------PHARMACIE------------//
 Route::controller(PharmacieController::class)->group(function () {
-    Route::get('/pharmacies', 'liste_pharmacie');
+    Route::get('/pharmacies', 'liste_pharmacie')->name('pharmacies');
 });
 //--------------PHARMACIE GARDE------------//
 Route::controller(GardeController::class)->group(function () {
-    Route::get('gardes', 'liste_garde');
+    Route::get('/gardes', 'liste_garde')->name('gardes');
 });
