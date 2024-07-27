@@ -1,5 +1,4 @@
 name: Laravel Deploiement
-
 on:
   push:
     branches:
