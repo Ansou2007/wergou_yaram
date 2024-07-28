@@ -10,7 +10,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-//--------------PHARMACIE------------//
+//--------------PHARMACIE-------------//
 Route::controller(ApiPharmacieController::class)->group(function () {
     Route::get('/pharmacies', 'liste_pharmacie')->name('pharmacies');
 });

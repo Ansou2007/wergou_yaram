@@ -10,12 +10,13 @@ class ApiPharmacieController extends Controller
     public function liste_pharmacie()
     {
         $data = Pharmacie::all();
-        return response()->json(
+        return response()->json($data);
+        /*  return response()->json(
             [
                 'message' => 'success',
                 'data' => $data
             ],
             200
-        );
+        ); */
     }
 }
