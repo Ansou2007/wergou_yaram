@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('prenom')->nullable();
             $table->string('nom')->nullable();
-            $table->string('telephone')->unique();
+            $table->string('telephone')->nullable();
             $table->boolean('status')->default(1)->comment("0=Inactif,1=Actif");
             $table->string('email')->unique();
             $table->string('photo')->nullable();
