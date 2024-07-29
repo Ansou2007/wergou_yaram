@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\GardeController;
 use App\Http\Controllers\Api\pharmacieController;
+use App\Http\Controllers\ApiGardeController;
 use App\Http\Controllers\ApiPharmacieController;
 use App\Http\Controllers\ApiUserController;
 use Illuminate\Http\Request;
@@ -23,6 +24,6 @@ Route::controller(ApiPharmacieController::class)->group(function () {
     Route::get('/pharmacies', 'liste_pharmacie')->name('pharmacies');
 });
 //--------------PHARMACIE GARDE------------//
-Route::controller(GardeController::class)->group(function () {
+Route::controller(ApiGardeController::class)->group(function () {
     Route::get('/gardes', 'liste_garde')->name('gardes');
 });

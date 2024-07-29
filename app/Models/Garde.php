@@ -10,4 +10,10 @@ class Garde extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+
+    public function pharmacies()
+    {
+        return $this->belongsTo(Pharmacie::class, 'pharmacie_id');
+    }
 }
