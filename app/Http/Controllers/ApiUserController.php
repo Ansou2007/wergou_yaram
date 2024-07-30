@@ -14,6 +14,12 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 class ApiUserController extends Controller
 {
 
+    public function liste_utilisateur()
+    {
+        $data = User::all();
+        return response()->json($data);
+    }
+
     // Inscription
     public function inscription(Request $request)
     {

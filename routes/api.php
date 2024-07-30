@@ -12,6 +12,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::controller(ApiUserController::class)->group(function () {
+    Route::get('/liste_utilisateur', 'liste_utilisateur');
+});
+
 
 Route::controller(ApiUserController::class)->group(function () {
     Route::post('/login', 'login');
