@@ -17,6 +17,7 @@ Route::controller(ApiUserController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/inscription', 'inscription');
     Route::post('/deconnexion', 'deconnexion');
+    Route::get('/logout', 'logout');
 });
 
 //--------------PHARMACIE-------------//

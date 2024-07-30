@@ -7,12 +7,14 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class ApiUserController extends Controller
 {
 
+    // Inscription
     public function inscription(Request $request)
     {
         try {
@@ -30,22 +32,50 @@ class ApiUserController extends Controller
             ]);
         }
     }
+
+    // Connexion
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string'
+        ]);
         $credentials = $request->only(['email', 'password']);
-        if (!$token = Auth::attempt($credentials)) {
+
+        $token = JWTAuth::attempt($credentials);
+        if (!empty($token)) {
             return response()->json([
-                'success' => false,
-                'message' => 'Invalid credentials'
-            ], 401);
+                'success' => true,
+                'token' => $token,
+                'user' => Auth::user()
+            ]);
         }
         return response()->json([
             'success' => false,
-            'token' => $token,
-            Auth::user()
+            'message' => "Compte inéxistant"
         ]);
     }
 
+
+    // profil
+
+    public function profil($id)
+    {
+    }
+
+    // Refresh Token
+
+    public function refresh()
+    {
+        return response()->json([
+            'success' => true,
+            'user' => Auth::user(),
+            'token' => Auth::refresh()
+
+        ]);
+    }
+
+    // Deconnexion
     public function deconnexion(Request $request)
     {
         try {
@@ -60,5 +90,14 @@ class ApiUserController extends Controller
                 'message' => $e
             ]);
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'status' => true,
+            'message' => "Déconnexion avec succéss"
+        ]);
     }
 }
