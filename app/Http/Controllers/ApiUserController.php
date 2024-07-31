@@ -23,18 +23,25 @@ class ApiUserController extends Controller
     // Inscription
     public function inscription(Request $request)
     {
+        $request->validate([
+            'prenom' => 'required',
+            'nom' => 'required',
+            'email' => 'required|email|string',
+            'telephone' => 'required'
+        ]);
         try {
             $user = new User();
             $user->prenom = $request->prenom;
             $user->nom = $request->nom;
             $user->email = $request->email;
+            $user->telephone = $request->telephone;
             $user->password = Hash::make($request->password);
             $user->save();
             return $this->login($request);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => "" . $e
+                'message' =>  $e
             ]);
         }
     }
