@@ -2,7 +2,7 @@ name: Laravel Deploiement
 on:
   push:
     branches:
-      - main
+      - prod
   #  branches: ["master"]
   #pull_request:
   # branches: ["master"]

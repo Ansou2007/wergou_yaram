@@ -23,7 +23,7 @@ class ApiUserController extends Controller
     // Inscription
     public function inscription(Request $request)
     {
-        
+
         try {
             $user = new User();
             $user->prenom = $request->prenom;
@@ -45,10 +45,10 @@ class ApiUserController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
+            'email' => 'required',
             'password' => 'required|string'
         ]);
-      
+
         $credentials = $request->only(['email', 'password']);
 
         $token = JWTAuth::attempt($credentials);
