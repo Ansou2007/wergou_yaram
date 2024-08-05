@@ -46,13 +46,13 @@ class ApiUserController extends Controller
     {
         $request->validate([
             'email' => 'required',
-            'password' => 'required|string'
+            'password' => 'required'
         ]);
 
         $credentials = $request->only(['email', 'password']);
 
-        $token = JWTAuth::attempt($credentials);
-        if (!empty($token)) {
+        //$token = JWTAuth::attempt($credentials);
+        if ($token = JWTAuth::attempt($credentials)) {
             return response()->json([
                 'success' => true,
                 'token' => $token,

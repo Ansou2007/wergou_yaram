@@ -12,9 +12,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::controller(ApiUserController::class)->group(function () {
-    Route::get('/liste_utilisateur', 'liste_utilisateur');
-});
+
 
 
 Route::controller(ApiUserController::class)->group(function () {
@@ -22,6 +20,7 @@ Route::controller(ApiUserController::class)->group(function () {
     Route::post('/inscription', 'inscription');
     Route::post('/deconnexion', 'deconnexion');
     Route::get('/logout', 'logout');
+    Route::get('/liste_utilisateur', 'liste_utilisateur');
 });
 
 //--------------PHARMACIE-------------//
