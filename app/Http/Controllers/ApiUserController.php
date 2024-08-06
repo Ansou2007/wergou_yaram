@@ -23,7 +23,6 @@ class ApiUserController extends Controller
     // Inscription
     public function inscription(Request $request)
     {
-
         try {
             $user = new User();
             $user->prenom = $request->prenom;
@@ -44,25 +43,31 @@ class ApiUserController extends Controller
     // Connexion
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required'
-        ]);
+        try {
+            $request->validate([
+                'email' => 'required',
+                'password' => 'required'
+            ]);
+            $credentials = $request->only(['email', 'password']);
 
-        $credentials = $request->only(['email', 'password']);
-
-        //$token = JWTAuth::attempt($credentials);
-        if ($token = JWTAuth::attempt($credentials)) {
+            //$token = JWTAuth::attempt($credentials);
+            if ($token = JWTAuth::attempt($credentials)) {
+                return response()->json([
+                    'success' => true,
+                    'token' => $token,
+                    'user' => Auth::user()
+                ]);
+            }
             return response()->json([
-                'success' => true,
-                'token' => $token,
-                'user' => Auth::user()
+                'success' => false,
+                'message' => "Compte inéxistant"
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e
             ]);
         }
-        return response()->json([
-            'success' => false,
-            'message' => "Compte inéxistant"
-        ]);
     }
 
 

@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\GardeController;
-use App\Http\Controllers\Api\pharmacieController;
+
 use App\Http\Controllers\ApiGardeController;
 use App\Http\Controllers\ApiPharmacieController;
 use App\Http\Controllers\ApiUserController;
@@ -26,8 +25,10 @@ Route::controller(ApiUserController::class)->group(function () {
 //--------------PHARMACIE-------------//
 Route::controller(ApiPharmacieController::class)->group(function () {
     Route::get('/pharmacies', 'liste_pharmacie')->name('pharmacies');
+    Route::post('/pharmacie', 'store')->name('pharmacie.store');
 });
 //--------------PHARMACIE GARDE------------//
 Route::controller(ApiGardeController::class)->group(function () {
     Route::get('/gardes', 'liste_garde')->name('gardes');
+    Route::post('/garde', 'store')->name('garde.store');
 });

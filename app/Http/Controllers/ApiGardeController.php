@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Garde;
+use Exception;
 use Illuminate\Http\Request;
 
 class ApiGardeController extends Controller
@@ -17,7 +18,6 @@ class ApiGardeController extends Controller
             if ($gardes->isEmpty()) {
                 return response()->json(['message' => 'Aucune garde trouvée'], 404);
             }
-
             // Transformation des données pour inclure uniquement les informations nécessaires
             $data = $gardes->map(function ($garde) {
                 return [
@@ -40,6 +40,45 @@ class ApiGardeController extends Controller
         } catch (\Exception $e) {
             // Retour d'une erreur serveur en cas d'exception
             return response()->json(['message' => 'Erreur serveur', 'error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $garde = new Garde();
+            $garde->pharmacie_id = $request->pharmacie_id;
+            $garde->date_debut = $request->date_debut;
+            $garde->date_fin = $request->date_fin;
+            $garde->save();
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Enregistrement avec succéss',
+                    'pharmacie' => $garde
+                ]
+            );
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' =>  $e
+            ]);
+        }
+    }
+    public function show($id)
+    {
+        try {
+            $garde = Garde::findOrFail($id);
+            return response()->json([
+                'success' => true,
+                'garde' => $garde
+            ]);
+        } catch (Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
         }
     }
 }
