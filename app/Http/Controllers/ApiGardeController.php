@@ -37,7 +37,7 @@ class ApiGardeController extends Controller
                 'message' => 'success',
                 'data' => $data
             ], 200); */
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Retour d'une erreur serveur en cas d'exception
             return response()->json(['message' => 'Erreur serveur', 'error' => $e->getMessage()], 500);
         }
@@ -68,7 +68,7 @@ class ApiGardeController extends Controller
     public function show($id)
     {
         try {
-            $garde = Garde::findOrFail($id);
+            $garde = Garde::where('pharmacie_id', $id)->first();
             return response()->json([
                 'success' => true,
                 'garde' => $garde

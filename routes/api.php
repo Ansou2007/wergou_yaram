@@ -26,9 +26,11 @@ Route::controller(ApiUserController::class)->group(function () {
 Route::controller(ApiPharmacieController::class)->group(function () {
     Route::get('/pharmacies', 'liste_pharmacie')->name('pharmacies');
     Route::post('/pharmacie', 'store')->name('pharmacie.store');
+    Route::get('pharmacie_show/{id}/', 'show');
 });
 //--------------PHARMACIE GARDE------------//
 Route::controller(ApiGardeController::class)->group(function () {
     Route::get('/gardes', 'liste_garde')->name('gardes');
     Route::post('/garde', 'store')->name('garde.store');
+    Route::get('garde_show/{id}/', 'show');
 });

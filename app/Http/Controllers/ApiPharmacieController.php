@@ -49,16 +49,22 @@ class ApiPharmacieController extends Controller
     public function show($id)
     {
         try {
-            $garde = Pharmacie::findOrFail($id);
+            $pharmacie = Pharmacie::where('user_id', $id)->first();
+            if (!$pharmacie) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Pharmacy not found'
+                ], 404);
+            }
             return response()->json([
                 'success' => true,
-                'pharmacie' => $garde
-            ]);
+                'pharmacie' => $pharmacie
+            ], 200);
         } catch (Exception $e) {
 
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => 'Erreur' . $e->getMessage()
             ]);
         }
     }
