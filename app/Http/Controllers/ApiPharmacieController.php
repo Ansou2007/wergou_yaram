@@ -56,12 +56,12 @@ class ApiPharmacieController extends Controller
                     'message' => 'Pharmacy not found'
                 ], 404);
             }
-            return response()->json([
+            /* return response()->json([
                 'success' => true,
                 'pharmacie' => $pharmacie
-            ], 200);
+            ], 200); */
+            return response()->json($pharmacie);
         } catch (Exception $e) {
-
             return response()->json([
                 'success' => false,
                 'message' => 'Erreur' . $e->getMessage()
