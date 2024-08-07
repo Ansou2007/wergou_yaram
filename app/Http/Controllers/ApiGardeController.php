@@ -69,12 +69,14 @@ class ApiGardeController extends Controller
     {
         try {
             $garde = Garde::where('pharmacie_id', $id)->first();
+            if ($garde) {
+                return response()->json($garde);
+            }
             return response()->json([
-                'success' => true,
-                'garde' => $garde
+                'success' => false,
+                'message' => 'Aucune garde'
             ]);
         } catch (Exception $e) {
-
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()

@@ -53,7 +53,7 @@ class ApiPharmacieController extends Controller
             if (!$pharmacie) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Pharmacy not found'
+                    'message' => 'Pharmacie non trouvée'
                 ], 404);
             }
             /* return response()->json([
