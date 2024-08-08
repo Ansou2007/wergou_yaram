@@ -31,6 +31,6 @@ Route::controller(ApiPharmacieController::class)->group(function () {
 //--------------PHARMACIE GARDE------------//
 Route::controller(ApiGardeController::class)->group(function () {
     Route::get('/gardes', 'liste_garde')->name('gardes');
-    Route::post('/garde', 'store')->name('garde.store');
+    Route::post('/garde', 'save')->name('garde.store');
     Route::get('garde_show/{id}/', 'show');
 });

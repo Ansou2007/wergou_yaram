@@ -44,7 +44,7 @@ class ApiGardeController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function save(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'pharmacie_id' => 'required|integer',
