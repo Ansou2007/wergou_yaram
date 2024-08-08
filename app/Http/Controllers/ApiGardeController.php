@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Garde;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ApiGardeController extends Controller
 {
@@ -45,24 +46,34 @@ class ApiGardeController extends Controller
 
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'pharmacie_id' => 'required|integer',
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date|after_or_equal:date_debut',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
         try {
             $garde = new Garde();
             $garde->pharmacie_id = $request->pharmacie_id;
             $garde->date_debut = $request->date_debut;
             $garde->date_fin = $request->date_fin;
             $garde->save();
-            return response()->json(
-                [
-                    'success' => true,
-                    'message' => 'Enregistrement avec succéss',
-                    'pharmacie' => $garde
-                ]
-            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Enregistrement avec succès',
+                'garde' => $garde
+            ], 201);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' =>  $e
-            ]);
+                'message' => 'Erreur serveur',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
     public function show($id)
