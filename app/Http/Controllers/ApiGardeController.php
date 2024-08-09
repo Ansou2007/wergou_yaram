@@ -49,7 +49,7 @@ class ApiGardeController extends Controller
         $validator = Validator::make($request->all(), [
             'pharmacie_id' => 'required|integer',
             'date_debut' => 'required|date',
-            'date_fin' => 'required|date|after_or_equal:date_debut',
+            'date_fin' => 'required|date|',
         ]);
 
         if ($validator->fails()) {
@@ -79,7 +79,7 @@ class ApiGardeController extends Controller
     public function show($id)
     {
         try {
-            $garde = Garde::where('pharmacie_id', $id)->first();
+            $garde = Garde::where('pharmacie_id', $id)->get();
             if ($garde) {
                 return response()->json($garde);
             }
